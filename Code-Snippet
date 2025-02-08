@@ -1,0 +1,1018 @@
+-- User Table
+CREATE TABLE Users (
+    User_Id VARCHAR2(22) PRIMARY KEY,
+    Password VARCHAR(22)
+);
+INSERT INTO Users (User_Id, Password) VALUES ('user451', '451');
+
+-- Customer Table
+CREATE TABLE Customer (
+    User_Id VARCHAR2(22) PRIMARY KEY,
+    Customer_Name VARCHAR(22),
+    Customer_Address VARCHAR(222),
+    Customer_Contact VARCHAR(15),
+    Customer_Mail VARCHAR(100),
+    Order_History CLOB,
+    FOREIGN KEY (User_Id) REFERENCES Users(User_Id)
+);
+INSERT INTO Customer (User_Id, Customer_Name, Customer_Address, Customer_Contact, Customer_Mail, Order_History)
+VALUES ('user451', 'Emmy', 'Washington, USA', '987777123456', 'Emmy@gmail.com', 'No');
+
+-- Admin Table
+CREATE TABLE Admin (
+    User_Id VARCHAR2(22) PRIMARY KEY,
+    Admin_Name VARCHAR(100),
+    Admin_Role VARCHAR(100),
+    FOREIGN KEY (User_Id) REFERENCES Users(User_Id)
+);
+Select* from Customer;
+INSERT INTO Admin (User_Id, Admin_Name, Admin_Role) VALUES ('user456', 'Zisan', 'Admin');
+INSERT INTO Admin (User_Id, Admin_Name, Admin_Role) VALUES ('user123', 'Riya', 'Manager');
+INSERT INTO Admin (User_Id, Admin_Name, Admin_Role) VALUES ('user809', 'Nasibul', 'Editor');
+-- Product Table
+CREATE TABLE Product (
+    Product_Id INT PRIMARY KEY,
+    Product_Name VARCHAR(100),
+    Product_Price DECIMAL(10, 2),
+    Product_Quantity INT,
+    Manufacturer_Id INT,
+    Category_Id INT,
+    FOREIGN KEY (Manufacturer_Id) REFERENCES Manufacturer(Manufacturer_Id),
+    FOREIGN KEY (Category_Id) REFERENCES ProductCategory(Category_Id)
+);
+
+CREATE VIEW Kids_Category_View AS
+SELECT
+    p.Product_Id,
+    p.Product_Name,
+    p.Product_Price,
+    p.Product_Quantity,
+    pc.Category_Name,
+    m.Manufacturer_Name
+FROM 
+    Product p
+JOIN 
+    ProductCategory pc ON p.Category_Id = pc.Category_Id
+JOIN 
+    Manufacturer m ON p.Manufacturer_Id = m.Manufacturer_Id
+WHERE 
+    p.Category_Id = 3;
+
+CREATE VIEW Womens_Category_View AS
+SELECT
+    p.Product_Id,
+    p.Product_Name,
+    p.Product_Price,
+    p.Product_Quantity,
+    pc.Category_Name,
+    m.Manufacturer_Name
+FROM 
+    Product p
+JOIN 
+    ProductCategory pc ON p.Category_Id = pc.Category_Id
+JOIN 
+    Manufacturer m ON p.Manufacturer_Id = m.Manufacturer_Id
+WHERE 
+    p.Category_Id = 1;
+
+CREATE VIEW Mens_Category_View AS
+SELECT
+    p.Product_Id,
+    p.Product_Name,
+    p.Product_Price,
+    p.Product_Quantity,
+    pc.Category_Name,
+    m.Manufacturer_Name
+FROM 
+    Product p
+JOIN 
+    ProductCategory pc ON p.Category_Id = pc.Category_Id
+JOIN 
+    Manufacturer m ON p.Manufacturer_Id = m.Manufacturer_Id
+WHERE 
+    p.Category_Id = 2;
+
+CREATE VIEW Cosmetics_Category_View AS
+SELECT
+    p.Product_Id,
+    p.Product_Name,
+    p.Product_Price,
+    p.Product_Quantity,
+    pc.Category_Name,
+    m.Manufacturer_Name
+FROM 
+    Product p
+JOIN 
+    ProductCategory pc ON p.Category_Id = pc.Category_Id
+JOIN 
+    Manufacturer m ON p.Manufacturer_Id = m.Manufacturer_Id
+WHERE 
+    p.Category_Id = 4;
+
+
+CREATE VIEW Electronics_Category_View AS
+SELECT
+    p.Product_Id,
+    p.Product_Name,
+    p.Product_Price,
+    p.Product_Quantity,
+    pc.Category_Name,
+    m.Manufacturer_Name
+FROM 
+    Product p
+JOIN 
+    ProductCategory pc ON p.Category_Id = pc.Category_Id
+JOIN 
+    Manufacturer m ON p.Manufacturer_Id = m.Manufacturer_Id
+WHERE 
+    p.Category_Id = 5;
+
+CREATE VIEW HomeAppliances_Category_View AS
+SELECT
+    p.Product_Id,
+    p.Product_Name,
+    p.Product_Price,
+    p.Product_Quantity,
+    pc.Category_Name,
+    m.Manufacturer_Name
+FROM 
+    Product p
+JOIN 
+    ProductCategory pc ON p.Category_Id = pc.Category_Id
+JOIN 
+    Manufacturer m ON p.Manufacturer_Id = m.Manufacturer_Id
+WHERE 
+    p.Category_Id = 6;
+
+
+-- Insert Product Values
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (1, 'iPhone 14 Pro', 99900.99, 50, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (2, 'iPhone 13 Pro Max', 89000.00, 60, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (3, 'iPhone 12 Pro', 78000.99, 100, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (4, 'iPhone 12 Pro Max', 80000.99, 80, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (5, 'iPhone 13 Pro', 85000.99, 70, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (6, 'iPhone 14 Pro Max', 120000.00, 40, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (7, 'iPhone SmartWatch', 29000.00, 60, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (8, 'Apple MacBook Air 13.3-Inch', 97000.00, 60, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (9, 'Apple MacBook Air (2022) Apple M2 Chip 13.6-Inch ', 129000.00, 30, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (10, 'Apple MacBook Air (2023)', 173000.00, 30, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (11, 'Apple MacBook Air 15 inch', 170000.00, 30, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (12, 'Apple MacBook Air (2023) Apple M2 Chip 15-Inch', 183000.00, 30, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (13, 'Apple MacBook Air 13 inch M3 Chip (2024)', 175000.00, 30, 1, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (14, 'Samsung Galaxy S22 Ultra', 100000.99, 150, 2, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (15, 'Realme GT Neo 2', 39000.28, 200, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (16, 'Panasonic Smart TV 55 inch', 59000.99, 50, 4, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (17, 'LG Refrigerator 450L', 78000.12, 75, 8, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (18, 'Chanel No.5 Perfume', 15000.00, 200, 12, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (19, 'Loreal Revitalift Cream', 2900.00, 300, 13, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (20, 'Ha-Meem Designer Shirt', 4500.00, 500, 9, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (21, 'Square Fashion Womens Dress', 6999.00, 250, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (22, 'Kaftan Tops', 2000.00, 220, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (23, 'Cami Tops', 1800.00, 270, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (24, 'One Shoulder Tops', 3000.00, 120, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (25, 'Flared Tops', 12000.00, 188, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (26, 'Peplum Tops', 7000.00, 140, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (27, 'Samsung Galaxy Z Fold5', 279999.00, 20, 2, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (28, 'Samsung Galaxy Z Fold4 5G', 245499.00, 30, 2, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (29, 'Samsung Galaxy Z Flip5', 174000.00, 40, 2, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (30, 'Cross-Over Tops', 5000.00, 80, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (31, 'Jamdani Saree', 70000.00, 30, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (32, 'Katan Saree', 20000.00, 80, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (33, 'Banarasi Saree', 40000.00, 40, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (34, 'Jorget Saree', 15000.00, 30, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (35, 'Assam Silk Saree', 60000.00, 80, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (36, 'Taant Saree', 16000.00, 97, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (37, 'Dhakai Jamdani Saree', 100000.00, 8, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (38, 'Chiffon Saree', 35000.00, 32, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (39, 'Polo Shirts', 2000.00, 80, 10, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (40, 'Checque Shirts', 1500.00, 55, 11, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (41, 'T-Shirts', 2000.00, 300, 11, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (42, 'T-Shirts', 2000.00, 200, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (43, 'Formal Shirts', 2500.00, 112, 10, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (44, 'Formal Shirts', 3000.00, 80, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (45, 'Formal Pants', 1300.00, 90, 10, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (46, 'Blue Jeans', 4000.00, 60, 9, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (47, 'Denim Shirts', 2000.00, 50, 9, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (48, 'Denim Shirts', 2000.00, 80, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (49, 'Flannel Shirts', 1000.00, 43, 11, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (50, 'Graham Shirts', 7000.00, 21, 11, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (51, 'Blue Pants', 1100.00, 41, 11, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (52, 'Black Pants', 12000.00, 70, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (53, 'Black Pants', 5000.00, 65, 11, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (54, 'Black Kurti', 2000.00, 134, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (55, 'White Kurti', 3000.00, 120, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (56, 'Silver Kurti', 2000.00, 50, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (57, 'Pakistani Salwar Kamiz', 6000.00, 70, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (58, 'White Scarf', 300.00, 142, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (59, 'Black Scarf', 450.00, 122, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (60, 'Blue Scarf', 200.00, 132, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (61, 'Silver Scarf', 400.00, 111, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (62, 'Brown Scarf', 400.00, 112, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (63, 'Black Borkha', 1300.00, 242, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (64, 'Silver Borkha', 1200.00, 102, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (65, 'Green Borkha', 1100.00, 132, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (66, 'Brown Borkha', 1000.00, 112, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (67, 'Chanel Ladies Bag', 12000.00, 22, 12, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (68, 'Exclusive Ladies Bag', 45000.00, 20, 12, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (69, 'Puore Ladies Bag', 6000.00, 32, 12, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (70, 'Square Ladies Bag', 3000.00, 52, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (71, 'Coxxy Ladies Bag', 4000.00, 62, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (72, 'White Pajama', 1000.00, 222, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (73, 'Black Pajama', 1200.00, 172, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (74, 'Blue Pajama', 1000.00, 142, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (75, 'White Exlusive Pajama', 4000.00, 30, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (76, 'Black Joggers', 1000.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (77, 'Katsy Joggers', 1200.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (78, 'Blue Joggers', 1100.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (79, 'Croos Joggers', 2000.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (80, 'Black Joggers', 1000.00, 30, 9, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (81, 'Katsy Joggers', 1200.00, 30, 9, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (82, 'Brown Joggers', 700.00, 30, 9, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (83, 'Croos Joggers', 2200.00, 30, 9, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (84, 'Neo Joggers', 4000.00, 30, 11, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (85, 'Denim Hoodie', 3000.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (86, 'Rexy Hoodie', 2000.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (87, 'Beyond Hoodie', 1200.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (88, 'Gash Hoodie', 1900.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (89, 'White Hoodie', 1000.00, 30, 10, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (90, 'Assasin Hoodie', 4000.00, 30, 10, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (91, 'Neo Hoodie', 4000.00, 30, 10, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (92, 'Itsy Hoodie', 2500.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (93, 'Rexy Hoodie', 2300.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (94, 'Mystery Hoodie', 10000.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (95, 'Parax Hoodie', 1100.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (96, 'Orion Hoodie', 230.00, 30, 9, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (97, 'Black Jacket', 10000.00, 44, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (98, 'Black Jacket', 8000.00, 76, 10, 2);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (99, 'Denim Jacket', 1000.00, 222, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (100, 'Cross-Over Tops', 5000.00, 80, 11, 1);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (101, 'Mattel Rail Set', 5000.00, 100, 19, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (102, 'Mattel Doraemon Set', 8900.00, 100, 19, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (103, 'Mattel Exclusive Hot Wheels', 9900.00, 100, 19, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (104, 'Mattel Barbie Sets', 5900.00, 100, 19, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (105, 'Lego Minecraft Sets', 7900.00, 100, 18, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (106, 'Lego SimCity Set', 12000.00, 100, 18, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (107, 'Mattel Robotics 4.0', 15900.00, 70, 19, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (108, 'Samsung Galaxy Note10+', 114000.00, 50, 2, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (109, 'Walton Computers', 86000.00, 40, 5, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (110, 'Walton Laptop', 90000.00, 78, 5, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (111, 'Walton Econo AC', 70000.00, 88, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (112, 'Walton Econo Refrigerator', 88000.00, 66, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (113, 'Lego Infinity Wars Set', 599.99, 100, 18, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (114, 'Mattel Power Rangers Set', 399.99, 100, 19, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (115, 'Lego Star Wars Set', 4999.99, 100, 18, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (116, 'Lego Toy Story Set', 699.99, 100, 18, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (117, 'Samsung Galaxy M55', 67000.00, 50, 2, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (118, 'Walton Regrigerator', 110000.00, 60, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (119, 'Samsung Galaxy A35', 52000.99, 70, 2, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (120, 'Lego GTA V Set', 12000.99, 100, 18, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (121, 'Walton Mixer', 30000.00, 220, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (122, 'Walton Electric Fan', 65000.00, 120, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (123, 'Walton Air Conditioner', 45000.00, 230, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (124, 'Walton Television 60 INCH', 120000.00, 30, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (125, 'Walton Television 80 INCH', 150000.00, 24, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (126, 'Walton Television 40 INCH', 60000.00, 65, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (127, 'Walton Television 22 INCH', 30000.00, 110, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (128, 'Walton TABLET', 20000.00, 88, 5, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (129, 'Walton Television 40 INCH', 120000.00, 88, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (130, 'Panasonic Iron', 30000.00, 72, 4, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (131, 'Panasonic Iron', 30000.00, 72, 4, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (132, 'Vision Stove', 10000.00, 144, 20, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (133, 'Walton Washing Machine', 40000.00, 40, 5, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (134, 'LG Oven', 60000.00, 65, 8, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (135, 'LG Washing Machine', 70000.00, 45, 8, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (136, 'LG Laptop', 60000.00, 35, 8, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (137, 'LG Television', 80000.00, 28, 8, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (138, 'LG Eco Refrigerator', 110000.00, 30, 8, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (139, 'LG Microwave', 55000.00, 32, 8, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (140, 'Vision Rice Cooker', 10000.00, 75, 20, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (141, 'Vision Pressure Cooker', 10000.00, 65, 20, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (142, 'Vision Television 55 Inch', 50000.00, 75, 20, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (143, 'Vision Oven', 20000.00, 55, 20, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (144, 'Vision Kettle', 10000.00, 75, 20, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (145, 'Vision Crockpot', 10000.00, 60, 20, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (146, 'Vision Electric Fan', 5000.00, 105, 20, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (147, 'Realme C61', 15000.00, 82, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (148, 'Realme 9 Pro+', 38000.00, 52, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (149, 'Realme narzo 50a prime', 19000.00, 92, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (150, 'Realme narzo 50', 16000.00, 102, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (151, 'Realme book prime', 74000.00, 32, 3, 5); realme Book
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (152, 'Realme Book', 59000.00, 52, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (153, 'Realme Pad mini', 22000.00, 58, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (154, 'Realme Pocket Bluetooth Speaker', 1900.00, 62, 3, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (155, 'Realme Buds Wireless 2', 3500.00, 92, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (156, 'realme Buds Wireless 2 Neo', 2100.00, 62, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (157, 'Realme Buds Q2', 2200.00, 62, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (158, 'Realme Watch 2 Pro', 6600.00, 42, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (159, 'Realme Watch 2', 4700.00, 55, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (160, 'Realme Band 2', 3900.00, 67, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (161, 'Realme Smart Cam 360°', 3600.00, 34, 3, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (162, 'Realme Mobile Game Finger Sleeves', 500.00, 63, 3, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (163, 'Realme Brick Bluetooth Speaker', 5000.00, 76, 3, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (164, 'Realme C55', 22000.00, 92, 3, 5);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (165, 'Samsung QLED Tizen Televison 45 Inch', 90000.99, 60, 2, 6); 
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (166, 'Samsung Crystal 4k UHD Television 55 Inch', 200000.99, 80, 2, 6); 
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (167, 'Samsung Microwave', 70000.00, 50, 2, 6); 
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (168, 'Samsung Hepa Air Filter', 40000.00, 40, 2, 6); 
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (169, 'Samsung AR950T 2 TON AC', 110000.00, 40, 2, 6); 
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (170, 'Samsung PowerStick Vaccuum Cleaner', 55000.00, 50, 2, 6); 
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (171, 'Samsung 2L Cannister Vaccuum Cleaner', 85000.99, 30, 2, 6); 
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (172, 'Samsung Neo QLED Television 55 Inch', 100000.99, 50, 2, 6); 
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (173, 'Square Kids Sneakers', 699.00, 100, 10, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (174, 'DBL Kids Boots', 699.00, 250, 11, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (175, 'Square Kids Boots', 999.00, 55, 10, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (176, 'DBL Kids Coats', 600.00, 70, 11, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (177, 'Square Kids Coats', 700.00, 75, 10, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (178, 'DBL Kids Jackets', 799.00, 220, 11, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (179, 'Square Kids Jackets', 899.00, 108, 10, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (180, 'Square Kids Backpacks', 999.00, 250, 10, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (181, 'DBL Kids Backpacks', 999.00, 250, 11, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (182, 'Ha-Meem Kids Pant', 599.00, 250, 9, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (183, 'Ha-Meem Kids Jeans', 699.00, 250, 9, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (184, 'Square Kids Sandals', 800.00, 210, 10, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (185, 'DBL Kids Shorts', 499.00, 290, 11, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (186, 'DBL Kids Pajamas', 399.00, 180, 11, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (187, 'Ha-Meem Kid Shirts', 780.00, 302, 9, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (188, 'Square Cap', 199.00, 60, 10, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (189, 'Robust Cap', 199.00, 60, 9, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (190, 'Loreal Shampoo', 599.00, 155, 13, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (191, 'Loreal Moisturiser', 699.00, 80, 13, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (192, 'Loreal Lipstick', 999.00, 260, 13, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (193, 'Loreal Beauty Cream', 899.00, 180, 13, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (194, 'Loreal Primer', 799.00, 110, 13, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (195, 'Nivea Lotion', 1299.00, 90, 15, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (196, 'Nivea Moisturiser', 899.00, 50, 15, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (197, 'Lancaster Sunscreen', 1099.00, 40, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (198, 'Insta-Dri Nail Color', 499.00, 50, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (199, 'Coty Boss Perfume', 8999.00, 40, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (200, 'Volume Glamour', 1299.00, 60, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (201, 'Flormar Face Powder', 1099.00, 52, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (202, 'Enchanteur Lotion', 899.00, 60, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (203, 'Essence Mascara', 599.00, 60, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (204, 'Mavlin Blush', 409.00, 60, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (205, 'Focallure Eyeliner', 299.00, 60, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (206, 'Black Foundation', 789.00, 60, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (207, 'Loreal Foundation', 999.00, 60, 13, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (208, 'Covergirl Cream', 699.00, 60, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (209, 'Daisy Perfume', 18000.00, 20, 14, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (210, 'Le Rouge Lip Color', 4800.00, 30, 12, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (211, 'Le 4 Ombres Eyeshadow', 6800.00, 40, 12, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (212, 'Le Vernis Nail Color', 5800.00, 30, 12, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (213, 'Ultra Le Teint Foundation', 3200.00, 40, 12, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (214, 'Le Volume De Chanel Mascara', 4800.00, 60, 12, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (215, 'Tarots De Chanel Blush', 3800.00, 98, 12, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (216, 'Miroir Double Facettes', 4800.00, 77, 12, 4);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (217, 'Huggies Diapers Size S', 800.00, 377, 17, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (218, 'Huggies Diapers Size M', 1000.00, 307, 17, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (219, 'Huggies Diapers Size L', 1400.00, 37, 17, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (220, 'Huggies Diapers Size XL', 2000.00, 17, 17, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (221, 'Huggies Wet Wipes 20 PCS', 200.00, 187, 17, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (222, 'Huggies Wet Wipes 50 PCS', 400.00, 97, 17, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (223, 'Johnson & Johnson Baby Lotion 1L', 3500.00, 77, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (224, 'Johnson & Johnson Baby Lotion 2L', 5500.00, 65, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (225, 'Johnson & Johnson Body Cream', 1800.00, 117, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (226, 'Johnson & Johnson Diapers S', 1200.00, 212, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (227, 'Johnson & Johnson Diapers M', 1500.00, 189, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (228, 'Johnson & Johnson Diapers L', 1800.00, 170, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (229, 'Johnson & Johnson Diapers XL', 2100.00, 150, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (230, 'Johnson & Johnson Diapers XXL', 2500.00, 80, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (231, 'Johnson & Johnson Baby Oil', 2000.00, 219, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (232, 'Johnson & Johnson Aveeno Moisturiser', 2100.00, 277, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (233, 'Johnson & Johnson Benadryl Allergy', 1700.00, 177, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (234, 'Johnson & Johnson Band Aid', 699.00, 145, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (235, 'Johnson & Johnson Neurogena Sunscreen', 1200.00, 75, 16, 3);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (236, 'Kia Mixer', 3500.00, 77, 6, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (237, 'Kia Blender', 2500.00, 57, 6, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (238, 'Kia Toaster', 2800.00, 67, 6, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (239, 'Kia Griller', 4500.00, 60, 6, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (240, 'Kia Stove', 6500.00, 55, 6, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (241, 'Kia Microwave', 8500.00, 49, 6, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (242, 'Kia Kettle', 3000.00, 97, 6, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (243, 'Kia Torch', 1500.00, 36, 6, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (244, 'Kia Water Purifier', 7500.00, 43, 6, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (245, 'Kia Oven', 6500.00, 78, 6, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (246, 'Kia Rice Cooker', 5500.00, 52, 6, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (247, 'Whirlpool Air Conditioner 2 Ton', 87000.00, 47, 7, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (248, 'Whirlpool Air Conditioner 1 Ton', 67000.00, 56, 7, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (249, 'Whirlpool Signature Air Conditioner', 127000.00, 40, 7, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (250, 'Whirlpool Microwave Oven', 12000.00, 37, 7, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (251, 'Whirlpool Washing Machine', 57000.00, 32, 7, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (252, 'Whirlpool Refrigerator', 97000.00, 33, 7, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (253, 'Whirlpool Econo Refrigerator', 127000.00, 47, 7, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (254, 'Whirlpool Deluxe Refrigerator', 145000.00, 27, 7, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (255, 'Whirlpool Dryers', 17000.00, 47, 7, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (256, 'Whirlpool Stove', 10000.00, 66, 7, 6);
+INSERT INTO Product (Product_Id, Product_Name, Product_Price, Product_Quantity, Manufacturer_Id, Category_Id)
+VALUES (257, 'Whirlpool Dishwasher', 7000.00, 50, 7, 6);
+
+
+
+
+
+
+-- Manufacturer Table
+CREATE TABLE Manufacturer (
+    Manufacturer_Id INT PRIMARY KEY,
+    Manufacturer_Name VARCHAR(100),
+    Manufacturer_Address VARCHAR(255)
+);
+
+
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (1, 'Apple', 'California, USA');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (2, 'Samsung', 'Seoul, South Korea');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (3, 'Realme', 'Guangzhou, China');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (4, 'Panasonic', 'Tokyo, Japan');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (5, 'Walton', 'Dhaka, Bangladesh');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (6, 'Kia', 'Seoul, South Korea');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (7, 'Whirlpool', 'Michigan, USA');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (8, 'LG', 'Seoul, South Korea');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (9, 'Ha-Meem Group', 'Narayanganj, Bangladesh');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (10, 'Square Fashion', 'Dhaka, Bangladesh');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (11, 'DBL Fashion', 'Gazipur, Bangladesh');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (12, 'Chanel', 'Paris, France');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (13, 'Loreal', 'Paris, France');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (14, 'COTY', 'Paris, France');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (15, 'Nivea', 'Berlin, Germany');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (16, 'Johnson & Johnson', 'New Jersey, USA');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (17, 'Huggies', 'New York, USA');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (18, 'Lego', 'Billund, Denmark');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (19, 'Mattel', 'Los Angeles, USA');
+INSERT INTO Manufacturer (Manufacturer_Id, Manufacturer_Name, Manufacturer_Address)
+VALUES (20, 'Vision', 'Chittagong, Bangladesh');
+
+Select* from Manufacturer Order By Manufacturer_Id;
+
+
+-- ProductCategory Table
+CREATE TABLE ProductCategory (
+    Category_Id INT PRIMARY KEY,
+    Category_Name VARCHAR(100)
+);
+
+
+INSERT INTO ProductCategory (Category_Id, Category_Name)
+VALUES (1, 'Women');
+INSERT INTO ProductCategory (Category_Id, Category_Name)
+VALUES (2, 'Men');
+INSERT INTO ProductCategory (Category_Id, Category_Name)
+VALUES (3, 'Kids');
+INSERT INTO ProductCategory (Category_Id, Category_Name)
+VALUES (4, 'Cosmetics');
+INSERT INTO ProductCategory (Category_Id, Category_Name)
+VALUES (5, 'Electronics');
+INSERT INTO ProductCategory (Category_Id, Category_Name)
+VALUES (6, 'Home Appliances');
+
+Select* from ProductCategory ORDER BY Category_Id;
+
+
+
+Drop table ShoppingCart cascade constraints;
+-- Shopping Cart Table
+CREATE TABLE ShoppingCart (
+    Cart_Id INT PRIMARY KEY,
+    Cart_Item_Quantity INT,
+    Product_Id INT,
+    User_Id VARCHAR2(22),
+    FOREIGN KEY (Product_Id) REFERENCES Product(Product_Id),
+    FOREIGN KEY (User_Id) REFERENCES Users(User_Id)
+);
+SELECT* FROM Customer;
+INSERT INTO ShoppingCart(Cart_Id, Cart_Item_Quantity, Product_Id, User_Id)
+VALUES (2, 1, 16, '12');
+
+
+-- Order Table
+CREATE TABLE Orders(
+    Order_Id INT PRIMARY KEY,
+    Cart_Id INT,
+    Order_Date DATE,
+    Order_Amount DECIMAL(10, 2),
+    FOREIGN KEY (Cart_Id) REFERENCES ShoppingCart(Cart_Id)
+);
+
+-- Payment Table
+CREATE TABLE Payment (
+    Payment_Id INT PRIMARY KEY,
+    Payment_Date DATE,
+    Payment_Amount DECIMAL(10, 2),
+    Payment_Method VARCHAR(50),
+    Order_Id INT,
+    FOREIGN KEY (Order_Id) REFERENCES Orders(Order_Id)
+);
+
+-- Tracking Detail Table
+CREATE TABLE TrackingDetail (
+    Tracking_No INT PRIMARY KEY,
+    Courier_Name VARCHAR(100),
+    Order_Id INT,
+    FOREIGN KEY (Order_Id) REFERENCES Orders(Order_Id)
+);
+INSERT INTO TrackingDetail (Tracking_No, Courier_Name, Order_Id)
+VALUES (1, 'Sundarban', 21);
+Select* from Orders;
+Drop table Review cascade constraints;
+
+-- Review Table
+CREATE TABLE Review (
+    Review_Id INT PRIMARY KEY,
+    Rating INT,
+    Comments CLOB,
+    Review_Date DATE,
+    Product_Id INT,
+    User_Id VARCHAR2(22),
+    FOREIGN KEY (Product_Id) REFERENCES Product(Product_Id),
+    FOREIGN KEY (User_Id) REFERENCES Users(User_Id)
+);
+INSERT INTO Review (Review_Id, Rating, Comments, Review_Date, Product_Id, User_Id)
+VALUES (1, 5, 'Excellent product!', TO_DATE('2023-09-01', 'YYYY-MM-DD'), 43, '12');
+INSERT INTO Review (Review_Id, Rating, Comments, Review_Date, Product_Id, User_Id)
+VALUES (2, 4, 'Very good, but can improve in quality.', TO_DATE('2023-09-05', 'YYYY-MM-DD'), 78, '12');
+INSERT INTO Review (Review_Id, Rating, Comments, Review_Date, Product_Id, User_Id)
+VALUES (3, 3, 'Average product, not worth the price.', TO_DATE('2023-09-10', 'YYYY-MM-DD'), 99, '12');
+INSERT INTO Review (Review_Id, Rating, Comments, Review_Date, Product_Id, User_Id)
+VALUES (4, 2, 'Not satisfied, poor packaging.', TO_DATE('2023-09-15', 'YYYY-MM-DD'), 19, '12');
+INSERT INTO Review (Review_Id, Rating, Comments, Review_Date, Product_Id, User_Id)
+VALUES (5, 5, 'Absolutely fantastic product!', TO_DATE('2023-09-20', 'YYYY-MM-DD'), 23, '12');
+INSERT INTO Review (Review_Id, Rating, Comments, Review_Date, Product_Id, User_Id)
+VALUES (6, 4, 'Good quality, fast delivery.', TO_DATE('2023-09-22', 'YYYY-MM-DD'), 34, 'user451');
+INSERT INTO Review (Review_Id, Rating, Comments, Review_Date, Product_Id, User_Id)
+VALUES (7, 5, 'Outstanding, highly recommend!', TO_DATE('2023-09-25', 'YYYY-MM-DD'), 56, 'user451');
+INSERT INTO Review (Review_Id, Rating, Comments, Review_Date, Product_Id, User_Id)
+VALUES (8, 3, 'Product was okay, delivery was slow.', TO_DATE('2023-09-28', 'YYYY-MM-DD'), 65, 'user451');
+INSERT INTO Review (Review_Id, Rating, Comments, Review_Date, Product_Id, User_Id)
+VALUES (9, 2, 'Not what I expected, poor customer service.', TO_DATE('2023-09-30', 'YYYY-MM-DD'), 110, 'user451');
+
+Select* from Orders;
+
+DROP table ShoppingCart cascade constraints; 
+Select* from ShoppingCart;
+Select* from Orders;
+Select* from Customer;
+
+CREATE OR REPLACE VIEW Customer_Orders AS
+SELECT 
+    c.User_Id, 
+    c.Customer_Name, 
+    o.Order_Id, 
+    o.Order_Date, 
+    o.Order_Amount
+FROM 
+    Orders o
+JOIN 
+    ShoppingCart sc ON o.Cart_Id = sc.Cart_Id
+JOIN 
+    Customer c ON sc.User_Id = c.User_Id;
+
+SELECT* FROM ORDERS;
+
+--Top_Selling
+CREATE OR REPLACE VIEW Top_Selling_Products AS
+SELECT 
+    p.Product_Id, 
+    p.Product_Name, 
+    SUM(sc.Cart_Item_Quantity) AS Total_Sold
+FROM 
+    Product p
+JOIN 
+    ShoppingCart sc ON p.Product_Id = sc.Product_Id
+GROUP BY 
+    p.Product_Id, p.Product_Name
+ORDER BY 
+    Total_Sold DESC;
+
+
+--Low_Stock_Products
+CREATE OR REPLACE VIEW Low_Stock_Products AS
+SELECT 
+    p.Product_Id, 
+    p.Product_Name, 
+    p.Product_Quantity
+FROM 
+    Product p
+WHERE 
+    p.Product_Quantity < 31;
+
+--
+CREATE VIEW Revenue_By_Product_Category AS
+SELECT 
+    pc.Category_Name, 
+    SUM(o.Order_Amount) AS Total_Revenue
+FROM 
+    Product p
+JOIN 
+    ProductCategory pc ON p.Category_Id = pc.Category_Id
+JOIN 
+    ShoppingCart sc ON p.Product_Id = sc.Product_Id
+JOIN 
+    Orders o ON o.Cart_Id = sc.Cart_Id
+GROUP BY 
+    pc.Category_Name;
+ Select* from Orders;
+
+--
+CREATE OR REPLACE VIEW Product_Performance_By_Rating AS
+SELECT 
+    p.Product_Id, 
+    p.Product_Name, 
+    AVG(r.Rating) AS Average_Rating
+FROM 
+    Product p
+JOIN 
+    Review r ON p.Product_Id = r.Product_Id
+GROUP BY 
+    p.Product_Id, p.Product_Name;
+
+CREATE OR REPLACE VIEW Orders_Without_Payment AS
+SELECT 
+    o.Order_Id, 
+    o.Order_Date, 
+    o.Order_Amount
+FROM 
+    Orders o
+LEFT JOIN 
+    Payment p ON o.Order_Id = p.Order_Id
+WHERE 
+    p.Payment_Id IS NULL;
+
+
+CREATE OR REPLACE VIEW Pending_Orders AS
+SELECT 
+    o.Order_Id, 
+    o.Order_Date, 
+    o.Order_Amount
+FROM 
+    Orders o
+LEFT JOIN 
+    TrackingDetail td ON o.Order_Id = td.Order_Id
+WHERE 
+    td.Tracking_No IS NULL;
+
+
+CREATE OR REPLACE VIEW Payment_History AS
+SELECT 
+    p.Payment_Id, 
+    p.Payment_Date, 
+    p.Payment_Amount, 
+    p.Payment_Method, 
+    o.Order_Id
+FROM 
+    Payment p
+JOIN 
+    Orders o ON p.Order_Id = o.Order_Id;
+
+
+--
+CREATE VIEW Customer_Details AS
+SELECT 
+    c.User_Id, 
+    c.Customer_Name, 
+    c.Customer_Address, 
+    c.Customer_Contact, 
+    c.Customer_Mail, 
+    u.Password
+FROM 
+    Customer c
+JOIN 
+    Users u ON c.User_Id = u.User_Id;
+
+--
+CREATE OR REPLACE VIEW Product_Review AS
+SELECT 
+    r.Review_Id, 
+    p.Product_Name, 
+    c.Customer_Name, 
+    r.Rating, 
+    r.Comments, 
+    r.Review_Date
+FROM 
+    Review r
+JOIN 
+    Product p ON r.Product_Id = p.Product_Id
+JOIN 
+    Customer c ON r.User_Id = c.User_Id;
+
+CREATE OR REPLACE VIEW Tracking_Order_Status AS
+SELECT 
+    o.Order_Id, 
+    td.Tracking_No, 
+    td.Courier_Name
+FROM 
+    Orders o
+LEFT JOIN 
+    TrackingDetail td ON o.Order_Id = td.Order_Id;
+
+--
+CREATE OR REPLACE VIEW Vip_Customers AS
+SELECT 
+    c.User_Id, 
+    c.Customer_Name, 
+    SUM(o.Order_Amount) AS Total_Spent
+FROM 
+    Customer c
+JOIN 
+    Orders o ON o.Cart_Id IN (
+        SELECT sc.Cart_Id
+        FROM ShoppingCart sc
+        WHERE sc.User_Id = c.User_Id
+    )
+GROUP BY 
+    c.User_Id, c.Customer_Name
+HAVING 
+    SUM(o.Order_Amount) > 50000;
+
+
+--
+CREATE OR REPLACE VIEW Most_Active_Customers AS
+SELECT 
+    c.User_Id, 
+    c.Customer_Name, 
+    COUNT(o.Order_Id) AS Total_Orders
+FROM 
+    Customer c
+JOIN 
+    ShoppingCart sc ON sc.User_Id = c.User_Id
+JOIN 
+    Orders o ON o.Cart_Id = sc.Cart_Id
+GROUP BY 
+    c.User_Id, c.Customer_Name
+ORDER BY 
+    Total_Orders DESC;
+
+
+Select* from Customer;
